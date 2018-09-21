@@ -36,26 +36,17 @@ def winner(candidates):
 
     votes = Counter(candidates)
 
-    cand_dict = {}
+    election_winner = {}
 
     for value in votes.values():
-        cand_dict[value] = []
+        election_winner[value] = []
 
     for (key,value) in votes.items():
-        cand_dict[value].append(key)
-
-    # Winner = sorted(cand_dict.keys(),reverse=True)[0]
-
-    # if len(cand_dict[Winner])>1:
-    #     print(sorted(cand_dict[Winner])[0])
-    # else:
-    #     print(cand_dict[Winner][0])
-
-    
+        election_winner[value].append(key)
     total_votes = sum(votes.values())
-    c = Counter(cand_dict).most_common()
+    c = Counter(election_winner).most_common()
 
-    x = len(sorted(cand_dict.keys(),reverse=True))
+    x = len(sorted(election_winner.keys(),reverse=True))
     output = os.path.join("election_results.txt")
 
     with open(output, "w+") as file:
@@ -71,29 +62,21 @@ def winner(candidates):
         file.write("-----------------------")
         file.write("\n")
         for i in range(x):
-            voteByCandidate = sorted(cand_dict.keys(),reverse=True)[i]
+            voteByCandidate = sorted(election_winner.keys(),reverse=True)[i]
             votePercentage = (voteByCandidate/total_votes)*10   
-            print(cand_dict[voteByCandidate]) 
+            print(election_winner[voteByCandidate]) 
             print(votePercentage) 
             print(voteByCandidate)  
             
-            file.write(f"{cand_dict[voteByCandidate]}: {votePercentage} ({voteByCandidate})")
+            file.write(f"{election_winner[voteByCandidate]}: {votePercentage} ({voteByCandidate})")
 
-        Winner = sorted(cand_dict.keys(),reverse=True)[0]
+        Winner = sorted(election_winner.keys(),reverse=True)[0]
 
-        if len(cand_dict[Winner])>1:
-            print(sorted(cand_dict[Winner])[0])
+        if len(election_winner[Winner])>1:
+            print(sorted(election_winner[Winner])[0])
         else:
-            print(cand_dict[Winner][0])
-            file.write(f"Winner: {cand_dict[Winner]}")
-    # for i in range(x):
-        #voteByCandidate = sorted(cand_dict.keys(),reverse=True)[i]
-    
-    #     votePercentage = (voteByCandidate/total_votes)*100
-
-    #     print(cand_dict[voteByCandidate]) 
-    #     print(votePercentage) 
-    #     print(voteByCandidate)    
+            print(election_winner[Winner][0])
+            file.write(f"Winner: {election_winner[Winner]}")
 
 
 
